@@ -48,12 +48,12 @@ public class CategoryServiceTest {
     public void getAllCateoories() throws Exception{
 
         //given
-        List<Category> categories = Arrays.asList(new Category(), new Category, new Category());
+        List<Category> categories = Arrays.asList(new Category(), new Category(), new Category());
 
         when(categoryRepository.findAll()).thenReturn(categories);
 
         //when
-        List<CategoryDTO> categoryDTOS=categoryService.getAllCateoories();
+        List<CategoryDTO> categoryDTOS=categoryService.getAllCategories();
 
         //then
         assertEquals(3,categoryDTOS.size());
