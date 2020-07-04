@@ -63,14 +63,40 @@ public class CustomerServiceImpl implements CustomerService {
 
     }
 
+    //implementacion de crear un nuevo customer
+    // se recibe un Customer de tipo DTO se convienrte a un tipo domain
+    // se procesa para guardar en
+    //con el custom repository y se procede
+    // a convertir nuevamente a tipo data transfer object.
     @Override
     public CustomerDTO createNewCustomer(CustomerDTO customerDTO) {
 
-        Customer customer=customerMapper.customerDTOToCustomer(customerDTO);
-        Customer savedCustomer=customerRepository.save(customer);
+        //Customer customer=customerMapper.customerDTOToCustomer(customerDTO);
+        // se desestima se creo un metodo para crear y actualizar
+        /*Customer savedCustomer=customerRepository.save(customer);
         CustomerDTO returnDTO=customerMapper.customerToCustomerDTO(savedCustomer);
         returnDTO.setCustomerUrl("api/v1/customers/"+ savedCustomer.getId());
+*/
 
+        return saveAndReturnDTO(customerMapper.customerDTOToCustomer(customerDTO));
+    }
+
+    //receive a Customer and proceed to save with de customer repository method save
+    // declare a object type DTO and convert the object type domain to dto
+    //add the custome url at the dto and concat the id of saved customer
+    private CustomerDTO saveAndReturnDTO(Customer customer) {
+
+        Customer savedCustomer = customerRepository.save(customer);
+        CustomerDTO returnDTO = customerMapper.customerToCustomerDTO(savedCustomer);
+        returnDTO.setCustomerUrl(("/api/v1/customers/" + savedCustomer.getId()));
         return returnDTO;
+    }
+
+    @Override
+    public CustomerDTO saveCustomerByDTO(Long id, CustomerDTO customerDTO) {
+        Customer customer= customerMapper.customerDTOToCustomer(customerDTO);
+        customer.setId(id);
+
+        return saveAndReturnDTO(customer);
     }
 }
