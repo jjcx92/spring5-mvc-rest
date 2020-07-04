@@ -16,5 +16,6 @@ public interface CustomerMapper  {
 
     //Mapping (source = "get_id", target="Id")
     CustomerDTO customerToCustomerDTO(Customer customer);
+    Customer customerDTOToCustomer(CustomerDTO customerDTO);
 }
 

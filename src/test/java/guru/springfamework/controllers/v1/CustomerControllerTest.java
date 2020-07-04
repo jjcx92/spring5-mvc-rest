@@ -2,6 +2,7 @@ package guru.springfamework.controllers.v1;
 
 
 import guru.springfamework.api.v1.model.CustomerDTO;
+import guru.springfamework.domain.Customer;
 import guru.springfamework.service.CustomerService;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,8 +14,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
 import java.util.Arrays;
 import java.util.List;
+
+import static guru.springfamework.controllers.v1.AbstractRestControllerTest.asJsonString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 
@@ -22,6 +26,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -34,6 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class CustomerControllerTest {
 
     public static final String NAME = "Jim";
+    public static final String LAST_NAME = "Cas";
 
 
     @Mock
@@ -82,7 +88,7 @@ public class CustomerControllerTest {
 
         CustomerDTO customerDTO = new CustomerDTO();
         customerDTO.setFirstName(NAME);
-        customerDTO.setLastName("Cas");
+        customerDTO.setLastName(LAST_NAME);
         customerDTO.setCustomerUrl("/api/v1/customers/1");
 
         when(customerService.getCustomerById(anyLong())).thenReturn(customerDTO);
@@ -92,6 +98,31 @@ public class CustomerControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andExpect(jsonPath("$.firstname", equalTo(NAME)));
+                .andExpect(jsonPath("$.firstName", equalTo(NAME)));
+
+    }
+
+    @Test
+    public void createNewCustomer() throws Exception {
+
+        CustomerDTO customer = new CustomerDTO();
+        customer.setFirstName(NAME);
+        customer.setLastName(LAST_NAME);
+
+        CustomerDTO returnDTO = new CustomerDTO();
+        returnDTO.setFirstName(customer.getFirstName());
+        returnDTO.setLastName(customer.getLastName());
+        returnDTO.setCustomerUrl("/api/v1/customers/1");
+
+        when(customerService.createNewCustomer(customer)).thenReturn(returnDTO);
+
+        mockMvc.perform(post("/api/v1/customers/")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(customer)))
+                .andExpect(status().isCreated())
+                .andDo(print())
+                .andExpect(jsonPath("$.firstName", equalTo(NAME)))
+                .andExpect(jsonPath("$.customer_url", equalTo("/api/v1/customers/1")));
+
     }
 }

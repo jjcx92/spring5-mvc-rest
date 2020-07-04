@@ -15,10 +15,12 @@ import org.springframework.stereotype.Component;
 public class Bootstrap implements CommandLineRunner {
 
     private CategoryRepository categoryRepository;
-    private CustomerRepository customerRepository;
+    private  final CustomerRepository customerRepository;
 
-    public Bootstrap(CategoryRepository categoryRepository) {
+    public Bootstrap(CategoryRepository categoryRepository,
+                     CustomerRepository customerRepository) {
         this.categoryRepository = categoryRepository;
+        this.customerRepository=customerRepository;
     }
 
 
@@ -26,7 +28,7 @@ public class Bootstrap implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         loadCategories();
-//        LoadCustomers();
+        LoadCustomers();
     }
 
     private void LoadCustomers() {
