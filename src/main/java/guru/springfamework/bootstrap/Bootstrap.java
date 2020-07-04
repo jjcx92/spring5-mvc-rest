@@ -26,7 +26,7 @@ public class Bootstrap implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         loadCategories();
-        LoadCustomers();
+//        LoadCustomers();
     }
 
     private void LoadCustomers() {
