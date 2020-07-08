@@ -15,7 +15,9 @@ import java.util.List;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 /**
  * Juerghens castro on 07-03-20 and  08:04 AM to 2020
@@ -117,4 +119,15 @@ public class CustomerServiceImplTest {
         assertEquals(customerDTO.getFirstName(), savedDto.getFirstName());
         assertEquals("/api/v1/customers/1", savedDto.getCustomerUrl());
     }
+
+    @Test
+    public void deleteCustomerById() throws Exception {
+
+        Long id = 1L;
+
+        customerRepository.deleteById(id);
+
+        verify(customerRepository, times(1)).deleteById(anyLong());
+    }
+
 }
