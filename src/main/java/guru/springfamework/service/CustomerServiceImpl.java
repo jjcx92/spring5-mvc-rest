@@ -62,7 +62,14 @@ public class CustomerServiceImpl implements CustomerService {
                     customerDTO.setCustomerUrl(getCustomerUrl(customer.getId()));
 
                     return customerDTO;
-                }).orElseThrow(RuntimeException::new); //todo implement better exception handling
+                }).orElseThrow(ResourceNotFoundException::new); // implement better exception handling
+
+        /*return;  customerRepository.findById(id)
+                .map(customerMapper::customerToCustomerDTO)
+                .map(customerDTO -> {
+                    customerDTO.setCustomerUrl(getCustomerUrl(id));
+                    return customerDTO;
+                }).orElseThrow(ResourceNotFoundException::new);*/
 
     }
 
@@ -122,7 +129,7 @@ public class CustomerServiceImpl implements CustomerService {
             returnDTO.setCustomerUrl(getCustomerUrl(id));
             return returnDTO;
 
-        }).orElseThrow(RuntimeException::new);// todo implement better exception handling
+        }).orElseThrow(ResourceNotFoundException::new);// todo implement better exception handling
     }
 
     private String getCustomerUrl(Long id) {
