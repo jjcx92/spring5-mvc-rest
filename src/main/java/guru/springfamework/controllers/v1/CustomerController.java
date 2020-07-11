@@ -3,6 +3,8 @@ package guru.springfamework.controllers.v1;
 import guru.springfamework.api.v1.model.CustomerDTO;
 import guru.springfamework.api.v1.model.CustomerListDTO;
 import guru.springfamework.service.CustomerService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 /**
  * Juerghens castro on 07-02-20 and  09:23 AM to 2020
  */
+//anotacion para identificar el controlador ne la API
+@Api(description = "this is my customer controller")
 //@Controller
 @RestController
 //@RequestMapping("/api/v1/customers")
@@ -68,7 +72,7 @@ public class CustomerController {
         }
         return new ResponseEntity<Void>(HttpStatus.OK);
     }*/
-
+    @ApiOperation(value = "this will get a list of customers.", notes = "these are some notes about the API")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public CustomerListDTO getListOfCustomers(){
