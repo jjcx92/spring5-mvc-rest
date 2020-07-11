@@ -35,18 +35,18 @@ public class VendorController {
         return new VendorListDTO(vendorService.getAllVendors());
     }
     @ApiOperation(value = "Get Vendor by Name")
-    @GetMapping("/{name}")
+    @GetMapping("/findByName/{name}")
     @ResponseStatus(HttpStatus.OK)
     public VendorDTO getVendorByName(@PathVariable String name) {
 
         return vendorService.getVendorByName(name);
     }
 
-    /*@GetMapping("/{id}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public VendorDTO getVendorById(@PathVariable Long id) {
         return vendorService.getVendorById(id);
-    }*/
+    }
     @ApiOperation(value = "Create a new Vendor")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

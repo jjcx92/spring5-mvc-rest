@@ -106,7 +106,7 @@ public class VendorServiceImpl implements VendorService {
 
 //        return "/api/v1/vendors" + id;
 
-        return VendorController.BASE_URL + id;
+        return VendorController.BASE_URL +"/"+ id;
 
     }
 
