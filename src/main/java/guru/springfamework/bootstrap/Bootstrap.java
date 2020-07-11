@@ -2,8 +2,11 @@ package guru.springfamework.bootstrap;
 
 import guru.springfamework.domain.Category;
 import guru.springfamework.domain.Customer;
+import guru.springfamework.domain.Vendor;
 import guru.springfamework.repositories.CategoryRepository;
 import guru.springfamework.repositories.CustomerRepository;
+import guru.springfamework.repositories.VendorRepository;
+import javafx.geometry.Pos;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -15,12 +18,15 @@ import org.springframework.stereotype.Component;
 public class Bootstrap implements CommandLineRunner {
 
     private CategoryRepository categoryRepository;
-    private  final CustomerRepository customerRepository;
+    private final VendorRepository vendorRepository;
+    private final CustomerRepository customerRepository;
 
     public Bootstrap(CategoryRepository categoryRepository,
-                     CustomerRepository customerRepository) {
+                     CustomerRepository customerRepository,
+                     VendorRepository vendorRepository) {
         this.categoryRepository = categoryRepository;
-        this.customerRepository=customerRepository;
+        this.customerRepository = customerRepository;
+        this.vendorRepository = vendorRepository;
     }
 
 
@@ -29,18 +35,19 @@ public class Bootstrap implements CommandLineRunner {
 
         loadCategories();
         LoadCustomers();
+        LoadVendor();
     }
 
     private void LoadCustomers() {
-        Customer jass= new Customer();
+        Customer jass = new Customer();
         jass.setId(1L);
         jass.setFirstName("jass");
         jass.setLastName("Jimenez");
-        Customer Jose= new Customer();
+        Customer Jose = new Customer();
         Jose.setId(2L);
         Jose.setFirstName("Jose");
         Jose.setLastName("Castro");
-        Customer meysi= new Customer();
+        Customer meysi = new Customer();
         meysi.setId(3L);
         meysi.setFirstName("meysi");
         meysi.setLastName("jimenez");
@@ -51,19 +58,19 @@ public class Bootstrap implements CommandLineRunner {
         customerRepository.save(meysi);
 
 
-        System.out.println("Customer loaded= "+ customerRepository.count());
+        System.out.println("Customer loaded= " + customerRepository.count());
     }
 
     private void loadCategories() {
-        Category fruits=new Category();
+        Category fruits = new Category();
         fruits.setName("Fruits");
-        Category dried=new Category();
+        Category dried = new Category();
         dried.setName("Dried");
-        Category fresh=new Category();
+        Category fresh = new Category();
         fresh.setName("Fresh");
-        Category exotic=new Category();
+        Category exotic = new Category();
         exotic.setName("Exotic");
-        Category nuts=new Category();
+        Category nuts = new Category();
         nuts.setName("nuts");
         categoryRepository.save(fruits);
         categoryRepository.save(dried);
@@ -71,5 +78,24 @@ public class Bootstrap implements CommandLineRunner {
         categoryRepository.save(exotic);
         categoryRepository.save(nuts);
         System.out.println("Data loaded= " + categoryRepository.count());
+    }
+
+    private void LoadVendor() {
+        Vendor Jass = new Vendor();
+        Jass.setName("Jass");
+        Vendor Joss = new Vendor();
+        Joss.setName("Joss");
+        Vendor Paty = new Vendor();
+        Paty.setName("Paty");
+        Vendor Ana = new Vendor();
+        Ana.setName("Ana");
+        Vendor Poss = new Vendor();
+        Poss.setName("poss");
+        vendorRepository.save(Jass);
+        vendorRepository.save(Joss);
+        vendorRepository.save(Ana);
+        vendorRepository.save(Paty);
+        vendorRepository.save(Poss);
+        System.out.println("Data loaded= " + vendorRepository.count());
     }
 }

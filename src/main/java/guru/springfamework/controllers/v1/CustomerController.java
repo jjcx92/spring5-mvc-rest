@@ -77,7 +77,8 @@ public class CustomerController {
 
     @GetMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
-    public CustomerDTO getCustomerById(@PathVariable Long id){
+    public CustomerDTO getCustomerById(@PathVariable Long id)
+    {
         return customerService.getCustomerById(id);
     }
 

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * Juerghens castro on 07-02-20 and  05:45 AM to 2020
  */
 //@Controller
-@ResponseBody
+@RestController
 @RequestMapping(CategoryController.BASE_URL)
 public class CategoryController {
 
