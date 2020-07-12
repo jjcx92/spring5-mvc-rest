@@ -69,7 +69,8 @@ public class VendorControllerTest {
 
         given(vendorService.getVendorByName(anyString())).willReturn(vendorDTO_1);
 
-        mockMvc.perform(get(VendorController.BASE_URL + "/Jim")
+        mockMvc.perform(get(VendorController.BASE_URL + "/findByName/Jim")
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", equalTo(vendorDTO_1.getName())));

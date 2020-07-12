@@ -1,5 +1,6 @@
 package guru.springfamework.controllers.v1;
 
+import com.sun.java.swing.plaf.motif.MotifEditorPaneUI;
 import guru.springfamework.api.v1.model.CategoryDTO;
 import guru.springfamework.service.CategoryService;
 import guru.springfamework.service.ResourceNotFoundException;
@@ -50,7 +51,7 @@ public class CategoryControllerTest {
         MockitoAnnotations.initMocks(this);
 
         //mockMvc = MockMvcBuilders.standaloneSetup(categoryController).build();
-        mockMvc=MockMvcBuilders.standaloneSetup(categoryController)
+        mockMvc = MockMvcBuilders.standaloneSetup(categoryController)
                 .setControllerAdvice(new RestResponseEntityExceptionHandler()).build();
     }
 
@@ -73,6 +74,7 @@ public class CategoryControllerTest {
         //then
         //se utiliza la constante del controlador customer que contiene la url de la API
         mockMvc.perform(get(CategoryController.BASE_URL)
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.categories", hasSize(2)));
@@ -91,20 +93,21 @@ public class CategoryControllerTest {
 
         //then
         //mockMvc.perform(get("/api/v1/categories/Jim")
-          mockMvc.perform(get(CategoryController.BASE_URL+"Jim")
+        mockMvc.perform(get(CategoryController.BASE_URL + "Jim")
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(jsonPath("$.name", equalTo(NAME)));
 
-        }
+    }
 
-        @Test
-        public void testGetByNameNotFound()throws Exception {
+    @Test
+    public void testGetByNameNotFound() throws Exception {
 
         when(categoryService.getCategoryByName(anyString())).thenThrow(ResourceNotFoundException.class);
 
-        mockMvc.perform(get(CategoryController.BASE_URL+"/Foo")
+        mockMvc.perform(get(CategoryController.BASE_URL + "/Foo")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
 
