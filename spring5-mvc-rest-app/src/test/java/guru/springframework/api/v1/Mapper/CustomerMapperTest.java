@@ -1,6 +1,7 @@
 package guru.springframework.api.v1.Mapper;
 
-import guru.springframework.api.v1.model.CustomerDTO;
+//import guru.springframework.api.v1.model.CustomerDTO;
+import guru.springframework.model.CustomerDTO;
 import guru.springframework.domain.Customer;
 import org.junit.Test;
 

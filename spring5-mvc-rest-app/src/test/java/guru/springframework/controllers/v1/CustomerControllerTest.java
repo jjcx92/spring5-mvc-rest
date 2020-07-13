@@ -1,7 +1,8 @@
 package guru.springframework.controllers.v1;
 
 
-import guru.springframework.api.v1.model.CustomerDTO;
+//import guru.springframework.api.v1.model.CustomerDTO;
+import guru.springframework.model.CustomerDTO;
 import guru.springframework.service.CustomerService;
 import guru.springframework.service.ResourceNotFoundException;
 import org.junit.Before;
@@ -10,6 +11,7 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.internal.matchers.Any;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -124,7 +126,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
         returnDTO.setLastName(customer.getLastName());
         //returnDTO.setCustomerUrl("/api/v1/customers/1");
         returnDTO.setCustomerUrl(CustomerController.BASE_URL + "/1");
-        when(customerService.createNewCustomer(customer)).thenReturn(returnDTO);
+        when(customerService.createNewCustomer(any())).thenReturn(returnDTO);
 
         //mockMvc.perform(post("/api/v1/customers/")
         mockMvc.perform(post(CustomerController.BASE_URL)
@@ -134,7 +136,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
                 .andExpect(status().isCreated())
                 .andDo(print())
                 .andExpect(jsonPath("$.firstName", equalTo(NAME)))
-                .andExpect(jsonPath("$.customer_url", equalTo(CustomerController.BASE_URL + "/1")));
+                .andExpect(jsonPath("$.customerUrl", equalTo(CustomerController.BASE_URL + "/1")));
 
     }
 
@@ -160,7 +162,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstName", equalTo("Fred")))
                 .andExpect(jsonPath("$.lastName", equalTo("Flintstone")))
-                .andExpect(jsonPath("$.customer_url", equalTo(CustomerController.BASE_URL + "/1")));
+                .andExpect(jsonPath("$.customerUrl", equalTo(CustomerController.BASE_URL + "/1")));
     }
 
     @Test
@@ -184,7 +186,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstName", equalTo("Fred")))
                 .andExpect(jsonPath("$.lastName", equalTo("Flintstone")))
-                .andExpect(jsonPath("$.customer_url", equalTo(CustomerController.BASE_URL + "/1")));
+                .andExpect(jsonPath("$.customerUrl", equalTo(CustomerController.BASE_URL + "/1")));
     }
 
     @Test

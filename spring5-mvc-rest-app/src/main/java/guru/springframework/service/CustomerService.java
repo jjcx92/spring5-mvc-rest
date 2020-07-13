@@ -1,7 +1,9 @@
 package guru.springframework.service;
 
-import guru.springframework.api.v1.model.CustomerDTO;
+//import guru.springframework.api.v1.model.CustomerDTO;
 
+
+import guru.springframework.model.CustomerDTO;
 
 import java.util.List;
 

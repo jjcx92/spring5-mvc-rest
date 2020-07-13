@@ -1,7 +1,10 @@
 package guru.springframework.controllers.v1;
 
-import guru.springframework.api.v1.model.CustomerDTO;
-import guru.springframework.api.v1.model.CustomerListDTO;
+//import guru.springframework.api.v1.model.CustomerDTO;
+//import guru.springframework.api.v1.model.CustomerListDTO;
+
+import guru.springframework.model.CustomerDTO;
+import guru.springframework.model.CustomerListDTO;
 import guru.springframework.service.CustomerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -74,7 +77,11 @@ public class CustomerController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public CustomerListDTO getListOfCustomers(){
-        return new CustomerListDTO(customerService.getAllCustomer());
+
+        CustomerListDTO customerListDTO = new CustomerListDTO();
+        customerListDTO.getCustomers().addAll(customerService.getAllCustomer());
+        return customerListDTO;
+        //return new CustomerListDTO(customerService.getAllCustomer());
     }
 
     @GetMapping({"/{id}"})

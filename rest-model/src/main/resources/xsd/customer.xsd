@@ -4,7 +4,7 @@
         <xs:sequence>
             <xs:element type="xs:string" name="firstName" minOccurs="0"/>
             <xs:element type="xs:string" name="lastName" minOccurs="0"/>
-            <xs:element type="xs:string" name="customerurl" minOccurs="0"/>
+            <xs:element type="xs:string" name="customerUrl" minOccurs="0"/>
 
         </xs:sequence>
     </xs:complexType>
